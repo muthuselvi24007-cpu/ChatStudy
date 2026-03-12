@@ -108,7 +108,37 @@ while True:
 
 conn.close()
 server.close()
+import socket
+
+# Create socket
+client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+host = "127.0.0.1"
+port = 12345
+
+# Connect to server
+client.connect((host, port))
+
+while True:
+    # Send message to server
+    msg = input("Client: ")
+    client.send(msg.encode())
+
+    if msg.lower() == "exit":
+        break
+
+    # Receive reply from server
+    server_msg = client.recv(1024).decode()
+    print("Server:", server_msg)
+
+    if server_msg.lower() == "exit":
+        break
+
+client.close()
 ```
+## Output:
+<img width="1515" height="794" alt="image" src="https://github.com/user-attachments/assets/d0043395-2272-421d-8a1d-b1cc881d3da6" />
+<img width="1529" height="471" alt="image" src="https://github.com/user-attachments/assets/5020670d-09d4-451e-afdd-553b1edf0eab" />
 
 ## Result:
 
